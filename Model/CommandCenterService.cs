@@ -9,53 +9,59 @@ namespace MarsRover
 		RoverInitialCoordinates,
 		RoverMovement
 	}
-	public  class CommandCenter
+	public class CommandCenterService
 	{
 		private readonly IPlateau plateau;
-		public CommandCenter()
+
+		public CommandCenterService()
 		{
 			plateau = new Plateau();
 		}
 		public void ProcessCommands(string commandString)
 		{
 			var commands = commandString.Trim().Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-			
-			var commandMatcher = new CommandMatcher();
-			
+
 			RobotAdmin robotAdmin = new RobotAdmin(plateau);
 
 			foreach (var command in commands)
 			{
 				if (!string.IsNullOrEmpty(command.Trim()))
 				{
-					var commandtype = commandMatcher.GetCommandType(command);
+					var commandtype = CommandMatcher.GetCommandType(command);
 					if (commandtype == CommandType.PlateauCoordinates)
 					{
 						var upperBounds = Parser.ParsePlateau(command);
 						plateau.SetUpperCoordinates(upperBounds);
 
 					}
-					 if (commandtype == CommandType.RoverInitialCoordinates)
+					if (commandtype == CommandType.RoverInitialCoordinates)
 					{
 						string directionName = "";
 						var coordinates = Parser.ParsePosition(command, out directionName);
 
-						robotAdmin = new RobotAdmin(plateau);
 						robotAdmin.AddRover(coordinates, directionName);
 					}
 					if (commandtype == CommandType.RoverMovement)
 					{
-						List<ICommand> movementCommands = Parser.MaptoCommands(command);
-						foreach (var movementCommand in movementCommands)
+						if (robotAdmin.CurrentRover != null)
 						{
-							movementCommand.Invoke(robotAdmin.CurrentRover);
+							List<ICommand> movementCommands = Parser.MaptoCommands(command);
+							foreach (var movementCommand in movementCommands)
+							{
+								movementCommand.Invoke(robotAdmin.CurrentRover);
+							}
 						}
+						else
+						{
+							throw new ArgumentException("Please provide the rover coordinates to deploy the rover");
+						}
+
 						Console.WriteLine($"{robotAdmin.CurrentRover.ToString()}");
 					}
 				}
 			}
 
 		}
-		
+
 	}
 }

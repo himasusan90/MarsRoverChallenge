@@ -1,4 +1,6 @@
-﻿namespace MarsRover
+﻿using System;
+
+namespace MarsRover
 {
 	public class MarsRover:IRover
 	{
@@ -24,8 +26,21 @@
 
 		public void Move()
 		{
-			Direction.Move();
+			if (CheckIfRoverIsDeployed())
+			{
+				Direction.Move();
+			}
+			else
+			{
+				throw new ArgumentException("Please provide the rover coordinates to deploy the rover");
+			}
 		}
+
+		private bool CheckIfRoverIsDeployed()
+		{
+			return Position.CheckIfPositionIsInitialized();
+		}
+
 		public override string ToString()
 		{
 			return Direction.ToString();

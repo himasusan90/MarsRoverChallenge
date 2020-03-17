@@ -3,7 +3,7 @@
 	class Position : IPosition
 	{
 		readonly IPlateau Plateau;
-		public ICoordinates Point { get; private set; } = new Coordinates(0,0);
+		public ICoordinates Point { get; private set; } 
 		public Position(IPlateau plateau,ICoordinates cordinates)
 		{
 			Plateau = plateau;
@@ -37,6 +37,11 @@
 			{
 				Point.GetNewYCoordinates(-1);
 			}
+		}
+
+		public bool CheckIfPositionIsInitialized()
+		{
+			return Point==null? false: true;
 		}
 
 		public override string ToString()

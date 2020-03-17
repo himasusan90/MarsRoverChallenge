@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\CardinalCompassPoints.cs" />
-    <Compile Include="Model\CommandCenter.cs" />
-    <Compile Include="Model\CommandMatcher.cs" />
+    <Compile Include="Model\CommandCenterService.cs" />
+    <Compile Include="Helper\CommandMatcher.cs" />
     <Compile Include="Model\Coordinates.cs" />
     <Compile Include="Model\Direction.cs" />
     <Compile Include="Interface\ICommand.cs" />
@@ -61,7 +61,7 @@
     <Compile Include="Helper\Parser.cs" />
     <Compile Include="Model\Plateau.cs" />
     <Compile Include="Model\Position.cs" />
-    <Compile Include="Model\Program.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\RobotAdmin.cs" />
     <Compile Include="Model\RotateLeft.cs" />

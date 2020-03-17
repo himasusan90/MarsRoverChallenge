@@ -15,7 +15,7 @@ namespace MarsRover
 		private static void executeCommandString(string commandString)
 		{
 
-			var commandCenter = new CommandCenter();
+			var commandCenter = new CommandCenterService();
 			commandCenter.ProcessCommands(commandString);
 		}
 		private static string buildCommandString()

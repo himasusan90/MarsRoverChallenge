@@ -7,14 +7,14 @@ namespace MarsRover
 {
 	internal class CommandMatcher: ICommandMatcher
 	{
-		private IDictionary<string, CommandType> commandTypeDictionary;
+		private static IDictionary<string, CommandType> commandTypeDictionary;
 
-		public CommandMatcher()
+		 static CommandMatcher()
 		{
 			InitializeCommandTypeDictionary();
 		}
 
-		public CommandType GetCommandType(string command)
+		public static CommandType GetCommandType(string command)
 		{
 			try
 			{
@@ -30,7 +30,7 @@ namespace MarsRover
 			}
 		}
 
-		private void InitializeCommandTypeDictionary()
+		private static void InitializeCommandTypeDictionary()
 		{
 			commandTypeDictionary = new Dictionary<string, CommandType>
 			{
